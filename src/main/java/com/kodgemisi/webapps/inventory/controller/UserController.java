@@ -2,6 +2,7 @@ package com.kodgemisi.webapps.inventory.controller;
 
 import com.kodgemisi.webapps.inventory.domain.User;
 import com.kodgemisi.webapps.inventory.domain.validator.RegisterValidator;
+import com.kodgemisi.webapps.inventory.helpers.UserValidator;
 import com.kodgemisi.webapps.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,9 @@ public class UserController {
         if (bindingResult.hasErrors())
             return "register";
 
-        userService.addUser(user);
+        if (UserValidator.isUserAllowed(user.getUsername()))
+            userService.addUser(user);
+
         return "redirect:/";
     }
 
@@ -57,6 +60,6 @@ public class UserController {
         if (null == userService.getUserById(id))
             throw new NoSuchElementException("User with id:" + id + " not found");
         else
-            return new ModelAndView("userItems" ,"items", userService.numberOfItemsByType(id));
+            return new ModelAndView("userItems", "items", userService.numberOfItemsByType(id));
     }
 }

@@ -12,6 +12,9 @@
         <li sec:authorize="isAuthenticated()">
             <a th:href="@{/users/} + ${user.id} + @{/items}">My Items</a>
         </li>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/items/add}">Add Items</a>
+        </li>
     </ul>
 </nav>
 

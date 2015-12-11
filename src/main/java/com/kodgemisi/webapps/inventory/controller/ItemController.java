@@ -4,6 +4,7 @@ import com.kodgemisi.webapps.inventory.domain.Item;
 import com.kodgemisi.webapps.inventory.domain.ItemAddForm;
 import com.kodgemisi.webapps.inventory.domain.ItemAssignForm;
 import com.kodgemisi.webapps.inventory.domain.User;
+import com.kodgemisi.webapps.inventory.helpers.ItemValidator;
 import com.kodgemisi.webapps.inventory.service.ItemService;
 import com.kodgemisi.webapps.inventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,13 @@ public class ItemController {
         return "redirect:/items";
     }
 
-    @RequestMapping(params="delete", value = "/items/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(params = "delete", value = "/items/{id}", method = RequestMethod.DELETE)
     public String handleItemDelete(@PathVariable Long id) {
-        itemService.deleteItemById(id);
+
+        String itemType = itemService.getItemById(id).getType();
+        if (ItemValidator.isItemRemoveable(itemType))
+            itemService.deleteItemById(id);
+
         return "redirect:/items";
     }
 }

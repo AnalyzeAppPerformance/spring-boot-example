@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
+
     @Autowired
     UserRepository userRepository;
 
@@ -30,10 +30,11 @@ public class Application implements CommandLineRunner {
     }
 
     public void run(String... strings) throws Exception {
-        Item item1 = new Item("123S", "Bilgisayar");
-        Item item2 = new Item("358G", "Bilgisayar");
-        Item item3 =  new Item("158A", "Bilgisayar");
-        Item item4 = new Item("935C", "Telefon");
+
+        Item item1 = new Item("Mac", "Computer");
+        Item item2 = new Item("HTC", "Phone");
+        Item item3 = new Item("S6", "Phone");
+        Item item4 = new Item("Xperia", "Phone");
 
         Set set1 = new HashSet<Item>();
         set1.add(item1);
@@ -42,15 +43,16 @@ public class Application implements CommandLineRunner {
 
         Set set2 = new HashSet<Item>();
         set2.add(item2);
+        set2.add(item3);
 
-        User user1 = new User("sedo", "123456");
-        user1.setName("Sedat");
-        user1.setLastName("Gökcen");
+        User user1 = new User("artur", "123456");
+        user1.setName("Artur");
+        user1.setLastName("Panek");
         user1.setItems(set1);
 
-        User user2 = new User("hool", "hoo123");
-        user2.setName("Hool");
-        user2.setLastName("Gökcen");
+        User user2 = new User("michal", "654321");
+        user2.setName("Michal");
+        user2.setLastName("Szczur");
         user2.setItems(set2);
 
         item1.setUser(user1);
